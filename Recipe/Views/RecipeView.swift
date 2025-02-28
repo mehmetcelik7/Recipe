@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct RecipeView: View {
+    
+    var recipeViewModel: RecipeViewModel = RecipeViewModel()
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+
+        NavigationStack {
+            List(self.recipeViewModel.recipeModels) { item in
+                NavigationLink(destination: {
+                    ShowRecipeView(theRecipe: item.recipe, imageName: item.recipeImage, recipeURL: item.recipeURL)
+                        
+                }, label: {
+                    ListItemView(name: item.name, caloriesPer100Grams: item.caloriesPer10Grams, recipeImage: item.recipeImage)
+                })
+               
+            }
+            .navigationTitle("Recipes")
         }
-        .padding()
+       
     }
 }
 
